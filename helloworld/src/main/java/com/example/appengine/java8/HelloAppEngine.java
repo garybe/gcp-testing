@@ -36,6 +36,17 @@ import com.google.cloud.firestore.QuerySnapshot;
 // With @WebServlet annotation the webapp/WEB-INF/web.xml is no longer required.
 @WebServlet(name = "HelloAppEngine", value = "/hello")
 public class HelloAppEngine extends HttpServlet {
+	
+	static boolean test1;
+	boolean test2;
+	
+	static { // invoke in static block
+		test1 = fireTest();
+	}
+	
+	public HelloAppEngine() { // invoke in constructor
+		test2 = fireTest();
+	}
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -46,7 +57,9 @@ public class HelloAppEngine extends HttpServlet {
     response.getWriter().println("Hello App Engine - Standard using "
             + SystemProperty.version.get() + " Java "
             + properties.get("java.specification.version")
-            + "; result of fireTest: " + fireTest());
+            + "; result of FIRST fireTest: " + test1
+            + "; result of SECOND fireTest: " + test2
+    		+ "; result of THIRD fireTest: " + fireTest());
   }
 
   public static String getInfo() {
@@ -54,7 +67,7 @@ public class HelloAppEngine extends HttpServlet {
           + " OS: " + System.getProperty("os.name")
           + " User: " + System.getProperty("user.name");
   }
-	public boolean fireTest() {
+	public static boolean fireTest() {
 	    FirestoreOptions firestoreOptions = FirestoreOptions.getDefaultInstance().toBuilder()
 			.setProjectId("chockstone-dev-poc-fire-db")
 			.setTimestampsInSnapshotsEnabled(true)

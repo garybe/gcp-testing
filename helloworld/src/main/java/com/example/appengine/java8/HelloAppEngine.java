@@ -57,9 +57,10 @@ public class HelloAppEngine extends HttpServlet {
 	public boolean fireTest() {
 	    FirestoreOptions firestoreOptions = FirestoreOptions.getDefaultInstance().toBuilder()
 			.setProjectId("chockstone-dev-poc-fire-db")
+			.setTimestampsInSnapshotsEnabled(true)
 			.build();
 	    Firestore firestore = firestoreOptions.getService();
-	    CollectionReference foo = firestore.collection("foo");
+	    CollectionReference foo = firestore.collection("foo").document("bar").collection("baz");
 		ApiFuture<QuerySnapshot> future = foo.get();
 		try {
 			return null != future.get();

@@ -57,15 +57,16 @@ public class HelloAppEngine extends HttpServlet {
     response.getWriter().println("Hello App Engine - Standard using "
             + SystemProperty.version.get() + " Java "
             + properties.get("java.specification.version")
-            + "; result of FIRST fireTest: " + test1
-            + "; result of SECOND fireTest: " + test2
-    		+ "; result of THIRD fireTest: " + fireTest());
+            + "; result of SECOND fireTest: " + test1
+            + "; result of THIRD fireTest: " + test2
+    		+ "; result of FOURTH fireTest: " + fireTest());
   }
 
   public static String getInfo() {
     return "Version: " + System.getProperty("java.version")
           + " OS: " + System.getProperty("os.name")
-          + " User: " + System.getProperty("user.name");
+          + " User: " + System.getProperty("user.name")
+  		  + " Result of FIRST fireTest: " + fireTest();
   }
 	public static boolean fireTest() {
 	    FirestoreOptions firestoreOptions = FirestoreOptions.getDefaultInstance().toBuilder()
